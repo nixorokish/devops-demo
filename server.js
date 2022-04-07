@@ -42,8 +42,10 @@ app.post('/api/students', (req, res) => {
            res.status(200).send(students)
        } else if (name === ''){
            res.status(400).send('You must enter a name.')
+           rollbar.error('Someone tried to add a student with no name.')
        } else {
            res.status(400).send('That student already exists.')
+           rollbar.error('Someone tried to add a student twice.')
        }
        rollbar.info('Someone added a student')
    } catch (err) {
